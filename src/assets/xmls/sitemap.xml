@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<!--
+ * urlfriendly, content are not used at the moment
+ * page id must be unique
+ * each page is parsed as a PageVO (see DataModel)
+ * a class definition corresponding to each page type must be included in swf (see autoImport Array in MainContext.as)
+-->
+
+<site>
+	<page id="Home" type="Home" urlfriendly="home">
+    	<title><![CDATA[Home]]></title>
+    	<content>
+    		<mc name="2" />
+    	</content>
+    </page>
+    
+    <page id="News" type="News" urlfriendly="news">
+    	<title><![CDATA[News]]></title>
+    </page>
+    
+    <page id="Contact" type="Contact" urlfriendly="contact">
+    	<title><![CDATA[Contact]]></title>
+    </page>
+</site>
