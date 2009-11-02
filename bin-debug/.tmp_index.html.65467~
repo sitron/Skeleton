@@ -1,0 +1,83 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
+<head>
+<!--#SOMAUI#-PROJECT_NAME_START-#SOMAUI#-->
+<title>Timea</title>
+<!--#SOMAUI#-PROJECT_NAME_END-#SOMAUI#-->
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="description" content="Timea Bacsinszky official site" />
+<meta name="keywords" content="timea, tennis, wta, swiss, switzerland, bacsinszky, pro, top10, top, ten" />
+<meta name="robots" content = "all" />
+<meta name="robots" content = "index, follow" />
+<meta name="revisit-after" content="30 days" />
+<meta name="audience" content="all" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
+<script type="text/javascript" src="js/browser.js"></script>
+<script type="text/javascript" src="js/swfobject.js"></script>
+<script type="text/javascript" src="js/swfaddress.js"></script>
+<script type="text/javascript" src="js/swffit.js"></script>
+<script type="text/javascript" src="js/swfmacmousewheel2.js"></script>
+<script type="text/javascript">
+var version = 1;
+var flashvars = {};
+flashvars.version = version;
+flashvars.baseURL = "";
+flashvars.mainswf = "Main.swf";
+flashvars.dataURL = "data/site.xml?nocache=" + version;
+flashvars.urlPrefix = "http://www.timea-b.com/drupal/";
+flashvars.gatewayUrl = "http://www.timea-b.com/drupal/services/amfphp";
+var params = {};
+//#SOMAUI#-HTML_BGCOLOR_START-#SOMAUI#
+params.bgcolor = "#121113";
+//#SOMAUI#-HTML_BGCOLOR_END-#SOMAUI#
+params.wmode = "window";
+params.scale = "noScale";
+params.salign = "lt";
+params.allowScriptAccess = "always";
+params.swLiveConnect = "true";
+params.base = "./";
+params.allowFullScreen = "true";
+
+var attributes = {};
+attributes.id = "swf";
+
+//#SOMAUI#-SWFOBJECT_START-#SOMAUI#
+swfobject.embedSWF("Preloader.swf?nocache="+version, "swfContainer", "100%", "100%", "9.0.0", "", flashvars, params, attributes);
+//#SOMAUI#-SWFOBJECT_END-#SOMAUI#
+if (BrowserDetect.OS == "Mac") swfmacmousewheel.registerObject(attributes.id);
+swffit.fit(attributes.id,991,755);
+</script>
+<link rel="stylesheet" type="text/css" href="css/flash_embed.css" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" type="text/css" href="css/flash_embed_ie6.css" />
+<![endif]-->
+</head>
+<body class="fullFlash">
+
+	<!--[if lte IE 6]><div class="fullFlashWrapperIE6"><![endif]-->
+
+		<div id="swfContainer">
+			<div style="margin: 40px 0px 0px 70px; width: 300px;">
+				<strong>Please update your Flash Player</strong><br /><br />
+				This site makes use of the Adobe Flash Player <!--#SOMAUI#-PROJECT_FLASH_PLAYER_START-#SOMAUI#-->9<!--#SOMAUI#-PROJECT_FLASH_PLAYER_END-#SOMAUI#--> and Javascript.<br />
+				<br />
+				The latest versions of browsers such as Firefox, Netscape or Internet Explorer usually have the Flash Player pre-installed.<br />
+				<br />
+				If your browser doesn't or has an older version of the player, you can <a href="http://www.adobe.com/go/getflashplayer" target="_blank"><b>download it here</b></a>.<br />
+				<br />
+				Please make sure you have Javascript turned on in the settings of your browser.<br />
+				<br />
+				Flash Player enables us to provide you with a dynamic website with video clips and full screen images.<br />
+				<br />
+				<a href="http://www.adobe.com/go/getflashplayer" target="_blank"><img src="images/get_flash_player2.jpg" alt="Get Adobe Flash Player" title="Get Adobe Flash Player" border="0" /></a><br />
+				<br /><br />
+				<a href="?detectflash=false"><b>Click here</b></a> if you're quite sure to have Flash Player installed.
+				<br />
+			</div>
+		</div>
+
+	<!--[if lte IE 6]></div><![endif]-->
+
+</body>
+</html>
