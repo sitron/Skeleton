@@ -7,7 +7,7 @@ package com.sitronnier.rlskeleton.models
 	
 	import nl.demonsters.debugger.MonsterDebugger;
 	
-	import org.robotlegs.mvcs.Model;
+	import org.robotlegs.mvcs.Actor;
 	
 	/**
 	 * <p><b>Author:</b> Laurent Prodon - <a href="http://www.sitronnier.com/" target="_blank">www.sitronnier.com</a><br/>
@@ -33,7 +33,7 @@ package com.sitronnier.rlskeleton.models
 	 * Big part of this project is derived from his work. Check it on http://www.soundstep.com/
 	 */
 	
-	public class DataModel extends Model
+	public class DataModel extends Actor
 	{
 		// is there a better way to do this?
 		public static const PAGE_PACKAGE:String = "com.sitronnier.rlskeleton.views.components.pages.";
@@ -99,7 +99,7 @@ package com.sitronnier.rlskeleton.models
 			_sitemap = xml;
 			_splitForPages();
 			
-			dispatchEvent(new DataEvent(DataEvent.NEW_PAGE_DATA));
+			dispatch(new DataEvent(DataEvent.NEW_PAGE_DATA));
 			
 			var homepage:PageVO = getPageById("Home");
 		} 

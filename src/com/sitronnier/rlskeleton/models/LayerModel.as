@@ -4,8 +4,7 @@ package com.sitronnier.rlskeleton.models
 	import flash.display.Sprite;
 	import flash.utils.Dictionary;
 	
-	import org.robotlegs.mvcs.Context;
-	import org.robotlegs.mvcs.Model;
+	import org.robotlegs.mvcs.Actor;
 	
 	/**
 	 * <p><b>Author:</b> Laurent Prodon - <a href="http://www.sitronnier.com/" target="_blank">www.sitronnier.com</a><br/>
@@ -31,7 +30,7 @@ package com.sitronnier.rlskeleton.models
 	 * Big part of this project is derived from his work. Check it on http://www.soundstep.com/
 	 */
 	
-	public class LayerModel extends Model
+	public class LayerModel extends Actor
 	{
 		public static const BACKGROUND_LAYER:String = "BACKGROUND_LAYER";
 		public static const UI_LAYER:String = "UI_LAYER";

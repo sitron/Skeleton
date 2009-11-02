@@ -78,15 +78,15 @@ package com.sitronnier.rlskeleton.commands
 			
 			// get base data
 			loaderModel.getLoader(LoaderModel.INITIAL).addEventListener(BulkLoader.COMPLETE, _onInitialDataLoaded);
-			dispatchEvent(new DataEvent(DataEvent.LOAD_SITEMAP));
-			dispatchEvent(new DataEvent(DataEvent.LOAD_STYLESHEET));
+			dispatch(new DataEvent(DataEvent.LOAD_SITEMAP));
+			dispatch(new DataEvent(DataEvent.LOAD_STYLESHEET));
 		}
 		
 		protected function _onInitialDataLoaded(event:Event):void
 		{
 			loaderModel.getLoader(LoaderModel.INITIAL).removeEventListener(BulkLoader.COMPLETE, _onInitialDataLoaded);
 			loaderModel.disposeLoader(LoaderModel.INITIAL);
-			dispatchEvent(new DataEvent(DataEvent.INITIAL_DATA_READY));
+			dispatch(new DataEvent(DataEvent.INITIAL_DATA_READY));
 		}
 	}
 }

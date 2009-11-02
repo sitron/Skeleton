@@ -35,12 +35,12 @@ package com.sitronnier.rlskeleton.views.mediators
 		
 		protected function _onPageTransitionOutComplete(event:PageViewEvent):void
 		{
-			dispatchEvent(new PageEvent(PageEvent.ON_TRANSITION_OUT_COMPLETE, event.pageId));
+			dispatch(new PageEvent(PageEvent.ON_TRANSITION_OUT_COMPLETE, event.pageId));
 		}
 		
 		protected function _onChangePageRequest(event:PageViewEvent):void
 		{
-			dispatchEvent(new PageEvent(PageEvent.CHANGE_PAGE_REQUEST, event.pageId));
+			dispatch(new PageEvent(PageEvent.CHANGE_PAGE_REQUEST, event.pageId));
 		}
 		
 		
@@ -54,8 +54,8 @@ package com.sitronnier.rlskeleton.views.mediators
 		
 		override public function onRegister() : void
 		{
-			addEventListenerTo(eventDispatcher, PageEvent.ON_PAGE_CHANGE, _onPageChange);
-			addEventListenerTo(eventDispatcher, PageEvent.ON_TRANSITION_OUT_COMPLETE, _onTransitionOutComplete);
+			eventMap.mapListener(eventDispatcher, PageEvent.ON_PAGE_CHANGE, _onPageChange);
+			eventMap.mapListener(eventDispatcher, PageEvent.ON_TRANSITION_OUT_COMPLETE, _onTransitionOutComplete);
 			
 			pageView.addEventListener(PageViewEvent.CHANGE_PAGE_REQUEST, _onChangePageRequest);
 			pageView.addEventListener(PageViewEvent.ON_TRANSITION_OUT_COMPLETE, _onPageTransitionOutComplete);

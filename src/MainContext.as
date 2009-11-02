@@ -55,11 +55,11 @@ package
 			// create loader model
 			injector.mapSingleton(LoaderModel);
 			
-			commandMap.mapEvent(StartupCommand, ContextEvent.STARTUP, ContextEvent, true);
-			commandMap.mapEvent(LoadSiteMapCommand, DataEvent.LOAD_SITEMAP, DataEvent, false);
-			commandMap.mapEvent(LoadStyleSheetCommand, DataEvent.LOAD_STYLESHEET, DataEvent, false);
-			commandMap.mapEvent(OnInitialDataReady, DataEvent.INITIAL_DATA_READY, DataEvent, false);
-			commandMap.mapEvent(PageChangeRequest, PageEvent.CHANGE_PAGE_REQUEST, PageEvent, false);
+			commandMap.mapEvent(ContextEvent.STARTUP, StartupCommand, ContextEvent, true);
+			commandMap.mapEvent(DataEvent.LOAD_SITEMAP, LoadSiteMapCommand, DataEvent, false);
+			commandMap.mapEvent(DataEvent.LOAD_STYLESHEET, LoadStyleSheetCommand, DataEvent, false);
+			commandMap.mapEvent(DataEvent.INITIAL_DATA_READY, OnInitialDataReady, DataEvent, false);
+			commandMap.mapEvent(PageEvent.CHANGE_PAGE_REQUEST, PageChangeRequest, PageEvent, false);
 						
 			dispatchEvent(new ContextEvent(ContextEvent.STARTUP));
 		}

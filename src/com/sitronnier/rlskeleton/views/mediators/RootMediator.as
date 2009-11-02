@@ -55,8 +55,8 @@ package com.sitronnier.rlskeleton.views.mediators
 		
 		override public function onRegister() : void
 		{
-			addEventListenerTo(eventDispatcher, PageEvent.ON_PAGE_CHANGE, _onPageChange);
-			addEventListenerTo(eventDispatcher, PageEvent.ON_TRANSITION_OUT_COMPLETE, _onTransitionOutComplete);
+			eventMap.mapListener(eventDispatcher, PageEvent.ON_PAGE_CHANGE, _onPageChange);
+			eventMap.mapListener(eventDispatcher, PageEvent.ON_TRANSITION_OUT_COMPLETE, _onTransitionOutComplete);
 		}
 		
 		public function getRootView():DisplayObjectContainer

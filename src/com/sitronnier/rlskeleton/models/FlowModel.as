@@ -7,7 +7,7 @@ package com.sitronnier.rlskeleton.models
 	
 	import nl.demonsters.debugger.MonsterDebugger;
 	
-	import org.robotlegs.mvcs.Model;
+	import org.robotlegs.mvcs.Actor;
 	
 	/**
 	 * <p><b>Author:</b> Laurent Prodon - <a href="http://www.sitronnier.com/" target="_blank">www.sitronnier.com</a><br/>
@@ -33,7 +33,7 @@ package com.sitronnier.rlskeleton.models
 	 * Big part of this project is derived from his work. Check it on http://www.soundstep.com/
 	 */
 	
-	public class FlowModel extends Model
+	public class FlowModel extends Actor
 	{
 		[Inject]
 		public var dataModel:DataModel;
@@ -86,7 +86,7 @@ package com.sitronnier.rlskeleton.models
 				oldPage = _currentPage;
 				
 				// inform actors that page will change (is this necessary?)
-				dispatchEvent(new PageEvent(PageEvent.PAGE_WILL_CHANGE, vo.id));
+				dispatch(new PageEvent(PageEvent.PAGE_WILL_CHANGE, vo.id));
 			}
 			
 			// create new page
@@ -97,10 +97,10 @@ package com.sitronnier.rlskeleton.models
 			// dispatch change event
 			var e:PageEvent = new PageEvent(PageEvent.ON_PAGE_CHANGE, _currentPage.id);
 			e.oldPageId = oldPage != null? oldPage.id : null;
-			dispatchEvent(e);	
+			dispatch(e);	
 						
 			// if no previous page, go directly to next
-			if (oldPage == null) dispatchEvent(new PageEvent(PageEvent.ON_TRANSITION_OUT_COMPLETE));
+			if (oldPage == null) dispatch(new PageEvent(PageEvent.ON_TRANSITION_OUT_COMPLETE));
 			
 			// update url
 			MonsterDebugger.trace(this, "set url to : " + vo.urlFriendly.toLowerCase());

@@ -1,121 +1,75 @@
-<!-- saved from url=(0014)about:internet -->
-<html lang="en">
-
-<!-- 
-Smart developers always View Source. 
-
-This application was built using Adobe Flex, an open source framework
-for building rich Internet applications that get delivered via the
-Flash Player or to desktops via Adobe AIR. 
-
-Learn more about Flex at http://flex.org 
-// -->
-
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en" xml:lang="en">
 <head>
-<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
-
-<!--  BEGIN Browser History required section -->
-<link rel="stylesheet" type="text/css" href="history/history.css" />
-<!--  END Browser History required section -->
-
 <title></title>
-<script src="AC_OETags.js" language="javascript"></script>
+<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+<meta http-equiv="content-type" content="text/html; charset=utf-8" />
+<meta name="description" content="sitronnier.com RobotLegs skeleton" />
+<meta name="keywords" content="sitronnier.com robotlegs skeleton" />
+<meta name="robots" content = "all" />
+<meta name="robots" content = "index, follow" />
+<meta name="revisit-after" content="30 days" />
+<meta name="audience" content="all" />
+<link rel="shortcut icon" href="/favicon.ico" type="image/x-icon">
+<link rel="icon" href="/favicon.ico" type="image/x-icon">
 
-<!--  BEGIN Browser History required section -->
-<script src="history/history.js" language="javascript"></script>
-<!--  END Browser History required section -->
+<script type="text/javascript" src="js/swfobject.js"></script>
+<script type="text/javascript" src="js/swfaddress.js"></script>
+<script type="text/javascript" src="js/swffit.js"></script>
+<script type="text/javascript">
+var version = 1;
+var flashvars = {};
+flashvars.version = version;
+flashvars.baseURL = "";
+flashvars.mainswf = "Skeleton.swf";
+flashvars.dataURL = "assets/xmls/sitemap.xml?nocache=" + version;
+var params = {};
+params.bgcolor = "#ffffff";
+params.wmode = "window";
+params.scale = "noScale";
+params.salign = "lt";
+params.allowScriptAccess = "always";
+params.swLiveConnect = "true";
+params.base = "./";
+params.allowFullScreen = "true";
 
-<style>
-body { margin: 0px; overflow:hidden }
-</style>
-<script language="JavaScript" type="text/javascript">
-<!--
-// -----------------------------------------------------------------------------
-// Globals
-// Major version of Flash required
-var requiredMajorVersion = 9;
-// Minor version of Flash required
-var requiredMinorVersion = 0;
-// Minor version of Flash required
-var requiredRevision = 124;
-// -----------------------------------------------------------------------------
-// -->
+var attributes = {};
+attributes.id = "swf";
+
+swfobject.embedSWF("Skeleton.swf?nocache="+version, "swfContainer", "100%", "100%", "9.0.0", "", flashvars, params, attributes);
+swffit.fit(attributes.id,800,600);
 </script>
+<link rel="stylesheet" type="text/css" href="assets/css/flash_embed.css" />
+<!--[if lte IE 6]>
+<link rel="stylesheet" type="text/css" href="assets/css/flash_embed_ie6.css" />
+<![endif]-->
 </head>
 
-<body scroll="no">
-<script language="JavaScript" type="text/javascript">
-<!--
-// Version check for the Flash Player that has the ability to start Player Product Install (6.0r65)
-var hasProductInstall = DetectFlashVer(6, 0, 65);
+<body class="fullFlash">
 
-// Version check based upon the values defined in globals
-var hasRequestedVersion = DetectFlashVer(requiredMajorVersion, requiredMinorVersion, requiredRevision);
+	<!--[if lte IE 6]><div class="fullFlashWrapperIE6"><![endif]-->
 
-if ( hasProductInstall && !hasRequestedVersion ) {
-	// DO NOT MODIFY THE FOLLOWING FOUR LINES
-	// Location visited after installation is complete if installation is required
-	var MMPlayerType = (isIE == true) ? "ActiveX" : "PlugIn";
-	var MMredirectURL = encodeURI(window.location);
-    document.title = document.title.slice(0, 47) + " - Flash Player Installation";
-    var MMdoctitle = document.title;
+		<div id="swfContainer">
+			<div style="margin: 40px 0px 0px 70px; width: 300px;">
+				<strong>Please update your Flash Player</strong><br /><br />
+				This site makes use of the Adobe Flash Player 9 and Javascript.<br />
+				<br />
+				The latest versions of browsers such as Firefox, Netscape or Internet Explorer usually have the Flash Player pre-installed.<br />
+				<br />
+				If your browser doesn't or has an older version of the player, you can <a href="http://www.adobe.com/go/getflashplayer" target="_blank"><b>download it here</b></a>.<br />
+				<br />
+				Please make sure you have Javascript turned on in the settings of your browser.<br />
+				<br />
+				Flash Player enables us to provide you with a dynamic website with video clips and full screen images.<br />
+				<br />
+				<a href="http://www.adobe.com/go/getflashplayer" target="_blank"><img src="images/get_flash_player2.jpg" alt="Get Adobe Flash Player" title="Get Adobe Flash Player" border="0" /></a><br />
+				<br /><br />
+				<a href="?detectflash=false"><b>Click here</b></a> if you're quite sure to have Flash Player installed.
+				<br />
+			</div>
+		</div>
 
-	AC_FL_RunContent(
-		"src", "playerProductInstall",
-		"FlashVars", "MMredirectURL="+MMredirectURL+'&MMplayerType='+MMPlayerType+'&MMdoctitle='+MMdoctitle+"",
-		"width", "100%",
-		"height", "100%",
-		"align", "middle",
-		"id", "Skeleton",
-		"quality", "high",
-		"bgcolor", "#869ca7",
-		"name", "Skeleton",
-		"allowScriptAccess","sameDomain",
-		"type", "application/x-shockwave-flash",
-		"pluginspage", "http://www.adobe.com/go/getflashplayer"
-	);
-} else if (hasRequestedVersion) {
-	// if we've detected an acceptable version
-	// embed the Flash Content SWF when all tests are passed
-	AC_FL_RunContent(
-			"src", "Skeleton",
-			"width", "100%",
-			"height", "100%",
-			"align", "middle",
-			"id", "Skeleton",
-			"quality", "high",
-			"bgcolor", "#869ca7",
-			"name", "Skeleton",
-			"allowScriptAccess","sameDomain",
-			"type", "application/x-shockwave-flash",
-			"pluginspage", "http://www.adobe.com/go/getflashplayer"
-	);
-  } else {  // flash is too old or we can't detect the plugin
-    var alternateContent = 'Alternate HTML content should be placed here. '
-  	+ 'This content requires the Adobe Flash Player. '
-   	+ '<a href=http://www.adobe.com/go/getflash/>Get Flash</a>';
-    document.write(alternateContent);  // insert non-flash content
-  }
-// -->
-</script>
-<noscript>
-  	<object classid="clsid:D27CDB6E-AE6D-11cf-96B8-444553540000"
-			id="Skeleton" width="100%" height="100%"
-			codebase="http://fpdownload.macromedia.com/get/flashplayer/current/swflash.cab">
-			<param name="movie" value="Skeleton.swf" />
-			<param name="quality" value="high" />
-			<param name="bgcolor" value="#869ca7" />
-			<param name="allowScriptAccess" value="sameDomain" />
-			<embed src="Skeleton.swf" quality="high" bgcolor="#869ca7"
-				width="100%" height="100%" name="Skeleton" align="middle"
-				play="true"
-				loop="false"
-				quality="high"
-				allowScriptAccess="sameDomain"
-				type="application/x-shockwave-flash"
-				pluginspage="http://www.adobe.com/go/getflashplayer">
-			</embed>
-	</object>
-</noscript>
+	<!--[if lte IE 6]></div><![endif]-->
+
 </body>
 </html>

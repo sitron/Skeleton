@@ -5,7 +5,7 @@ package com.sitronnier.rlskeleton.models
 	import flash.text.StyleSheet;
 	import flash.utils.Dictionary;
 	
-	import org.robotlegs.mvcs.Model;
+	import org.robotlegs.mvcs.Actor;
 	
 	/**
 	 * <p><b>Author:</b> Laurent Prodon - <a href="http://www.sitronnier.com/" target="_blank">www.sitronnier.com</a><br/>
@@ -31,7 +31,7 @@ package com.sitronnier.rlskeleton.models
 	 * Big part of this project is derived from his work. Check it on http://www.soundstep.com/
 	 */
 	
-	public class StyleModel extends Model
+	public class StyleModel extends Actor
 	{
 		// stores all the style sheets
 		protected var _stylesheets:Dictionary = new Dictionary();
@@ -48,7 +48,7 @@ package com.sitronnier.rlskeleton.models
 		{
 			_stylesheets[id] = ss;	
 			
-			dispatchEvent(new DataEvent(DataEvent.NEW_STYLESHEET_DATA));
+			dispatch(new DataEvent(DataEvent.NEW_STYLESHEET_DATA));
 		} 
 		
 		public function getStyleSheet(id:String = null):StyleSheet

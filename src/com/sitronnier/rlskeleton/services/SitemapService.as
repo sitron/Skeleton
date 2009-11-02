@@ -9,7 +9,7 @@ package com.sitronnier.rlskeleton.services
 	import flash.events.ErrorEvent;
 	import flash.events.Event;
 	
-	import org.robotlegs.mvcs.Service;
+	import org.robotlegs.mvcs.Actor;
 	
 	/**
 	 * <p><b>Author:</b> Laurent Prodon - <a href="http://www.sitronnier.com/" target="_blank">www.sitronnier.com</a><br/>
@@ -35,7 +35,7 @@ package com.sitronnier.rlskeleton.services
 	 * Big part of this project is derived from his work. Check it on http://www.soundstep.com/
 	 */
 	
-	public class SitemapService extends Service
+	public class SitemapService extends Actor
 	{
 		[Inject]
 		public var datamodel:DataModel;
