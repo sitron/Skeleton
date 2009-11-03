@@ -41,7 +41,7 @@ package com.sitronnier.rlskeleton.commands
 	 * The Initial Developer of the Original Code is Laurent Prodon.<br />
 	 * Initial Developer are Copyright (C) 2008-2009 Sitronnier.com. All Rights Reserved.</p>
 	 *
-	 * This work was inspired by the Soma project (thanks to Romuald Quantin for making it available). Check it on http://www.soundstep.com/<br />
+	 * Thanks to Romuald Quantin for making his Soma project available (http://www.soundstep.com), great inspiration for this work. <br />
 	 */
 	
 	public class StartupCommand extends Command

@@ -20,8 +20,7 @@ package com.sitronnier.rlskeleton.vos
 	 * The Initial Developer of the Original Code is Laurent Prodon.<br />
 	 * Initial Developer are Copyright (C) 2008-2009 Sitronnier.com. All Rights Reserved.</p>
 	 *
-	 * THANKS a lot to Romuald Quantin for making his Soma project available. <br />
-	 * Big part of this project is derived from his work. Check it on http://www.soundstep.com/
+	 * Thanks to Romuald Quantin for making his Soma project available (http://www.soundstep.com), great inspiration for this work. <br />
 	 */
 	
 	public class PageVO
