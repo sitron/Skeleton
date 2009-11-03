@@ -5,14 +5,15 @@ package com.sitronnier.rlskeleton.commands
 	import com.sitronnier.rlskeleton.events.DataEvent;
 	import com.sitronnier.rlskeleton.models.DataModel;
 	import com.sitronnier.rlskeleton.models.FlowModel;
-	import com.sitronnier.rlskeleton.models.LayerModel;
 	import com.sitronnier.rlskeleton.models.LoaderModel;
 	import com.sitronnier.rlskeleton.models.StyleModel;
 	import com.sitronnier.rlskeleton.services.SitemapService;
 	import com.sitronnier.rlskeleton.services.StyleService;
+	import com.sitronnier.rlskeleton.views.components.menus.BasicMenu;
 	import com.sitronnier.rlskeleton.views.components.pages.Contact;
 	import com.sitronnier.rlskeleton.views.components.pages.Home;
 	import com.sitronnier.rlskeleton.views.components.pages.News;
+	import com.sitronnier.rlskeleton.views.mediators.MenuMediator;
 	import com.sitronnier.rlskeleton.views.mediators.PageMediator;
 	import com.sitronnier.rlskeleton.views.mediators.RootMediator;
 	
@@ -59,7 +60,6 @@ package com.sitronnier.rlskeleton.commands
 			// create needed models
 			injector.mapSingleton(DataModel);
 			injector.mapSingleton(StyleModel);
-			injector.mapSingleton(LayerModel);
 			injector.mapSingleton(FlowModel);
 			
 			// create needed services
@@ -70,11 +70,14 @@ package com.sitronnier.rlskeleton.commands
 			mediatorMap.mapView(Skeleton, RootMediator);
 			mediatorMap.createMediator(contextView);
 			
-			// register needed views
+			// register needed page views
 //			mediatorMap.mapView(AbstractPage, PageMediator); // this is never wired as page is a subclass of AbstractPage (is this normal?)
 			mediatorMap.mapView(Home, PageMediator);
 			mediatorMap.mapView(News, PageMediator);
 			mediatorMap.mapView(Contact, PageMediator);
+			
+			// register menu page
+			mediatorMap.mapView(BasicMenu, MenuMediator);
 			
 			// get base data
 			loaderModel.getLoader(LoaderModel.INITIAL).addEventListener(BulkLoader.COMPLETE, _onInitialDataLoaded);

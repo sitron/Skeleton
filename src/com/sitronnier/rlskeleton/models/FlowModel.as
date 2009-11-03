@@ -38,9 +38,6 @@ package com.sitronnier.rlskeleton.models
 		[Inject]
 		public var dataModel:DataModel;
 		
-		[Inject]
-		public var layerModel:LayerModel;
-		
 		protected var _currentPage:PageVO;
 		protected var _oldPages:Array = [];
 		

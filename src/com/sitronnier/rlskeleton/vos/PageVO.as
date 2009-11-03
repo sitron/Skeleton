@@ -35,6 +35,7 @@ package com.sitronnier.rlskeleton.vos
 		public var content:XML;		
 		public var children:Array = [];
 		public var nbChildren:int = 0;
+		public var parent:PageVO;
 		
 		public function PageVO(xml:XML = null)
 		{

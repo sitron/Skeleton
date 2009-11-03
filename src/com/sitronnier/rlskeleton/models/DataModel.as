@@ -82,6 +82,7 @@ package com.sitronnier.rlskeleton.models
 				{
 					var parentvo:PageVO = getPageById(page.parent().@id);
 					parentvo.addChild(pagevo);
+					pagevo.parent = parentvo;
 				}
 			}			 
 		}
@@ -133,6 +134,21 @@ package com.sitronnier.rlskeleton.models
 			var xml:XML = xmllist[0] as XML;
 			var id:String = xml.@id;
 			return id;
+		} 
+		
+		public function getPagesByParent(parent:PageVO = null):Array
+		{
+			var a:Array = [];
+			if (parent == null)
+			{
+				var list:XMLList = _sitemap.child("page");
+				for each (var listItem:XML in list)
+				{
+					a.push(getPageById(listItem.@id.toString()));
+				}
+				return a;
+			}
+			return parent.children;			
 		} 
 	}
 }
