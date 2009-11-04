@@ -39,11 +39,6 @@ package com.sitronnier.rlskeleton.commands
 		
 		override public function execute() : void
 		{
-			trace("initial data ready");
-			
-			// show menu
-			
-			
 			// start with 1st page
 			flowModel.show();
 		}
