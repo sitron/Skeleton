@@ -10,6 +10,9 @@ package com.sitronnier.rlskeleton.views.mediators
 	
 	import flash.display.DisplayObjectContainer;
 	import flash.display.Sprite;
+	import flash.events.ContextMenuEvent;
+	import flash.ui.ContextMenu;
+	import flash.ui.ContextMenuItem;
 	import flash.utils.Dictionary;
 	import flash.utils.getDefinitionByName;
 	
@@ -47,6 +50,9 @@ package com.sitronnier.rlskeleton.views.mediators
 		
 		[Inject]
 		public var flowModel:FlowModel;
+		
+		[Inject]
+		public var dataModel:DataModel;
 		
 		protected var _currentPage:AbstractPage;
 		
@@ -88,6 +94,7 @@ package com.sitronnier.rlskeleton.views.mediators
 		{
 			_createLayers();
 			_addMenu();
+			_createContextMenu();
 		}
 		
 		protected function _addMenu():void
@@ -109,6 +116,28 @@ package com.sitronnier.rlskeleton.views.mediators
 			var layer:Sprite = new Sprite();
 			layer.name = layerName;
 			return layer;
+		}
+		
+		protected function _createContextMenu():void
+		{
+			var cm:ContextMenu = new ContextMenu();
+			cm.hideBuiltInItems();
+			
+			// only first level menu is used for context menu
+			var firstLevel_menudata:Array = dataModel.getPagesByParent();
+			for each (var page:PageVO in firstLevel_menudata)
+			{
+				var cmenuitem:ContextMenuItem = new ContextMenuItem(page.urlFriendly);
+				cmenuitem.addEventListener(ContextMenuEvent.MENU_ITEM_SELECT, _onContextMenuClick);
+				cm.customItems.push(cmenuitem);
+			}			
+			contextView.contextMenu = cm;
+		}
+		
+		protected function _onContextMenuClick(event:ContextMenuEvent):void
+		{
+			var pageid:String = dataModel.getPageByUrl((event.currentTarget as ContextMenuItem).caption);
+			dispatch(new PageEvent(PageEvent.CHANGE_PAGE_REQUEST, pageid));
 		}
 		
 		
