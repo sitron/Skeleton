@@ -1,0 +1,34 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<projectDescription>
+	<name>Skeleton</name>
+	<comment></comment>
+	<projects>
+	</projects>
+	<buildSpec>
+		<buildCommand>
+			<name>com.adobe.flexbuilder.project.flexbuilder</name>
+			<arguments>
+			</arguments>
+		</buildCommand>
+	</buildSpec>
+	<natures>
+		<nature>com.adobe.flexbuilder.project.actionscriptnature</nature>
+	</natures>
+	<linkedResources>
+		<link>
+			<name>[source path] 2.4</name>
+			<type>2</type>
+			<location>/Users/laurent/Documents/Dropbox/dev/classes/swfaddress/2.4</location>
+		</link>
+		<link>
+			<name>[source path] 282</name>
+			<type>2</type>
+			<location>/Users/laurent/Documents/Dropbox/dev/classes/bulkloader/282</location>
+		</link>
+		<link>
+			<name>[source path] monsterdebugger</name>
+			<type>2</type>
+			<location>/Users/laurent/Documents/Dropbox/dev/classes/monsterdebugger</location>
+		</link>
+	</linkedResources>
+</projectDescription>
