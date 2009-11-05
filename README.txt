@@ -5,10 +5,10 @@ Features:
 - site "flow" based on event mechanism
 - basic menu auto build out of sitemap
 - context menu
+- exclude page mechanism to update url for intra-page (version 1, very fragile...)
 
 Todo:
 - tree menu
-- excluded page (to update url but don't show in menu)
 - text and style utils (somaText for ex.)
 - use RL loading utility rather than Bulkloader
 - ...
