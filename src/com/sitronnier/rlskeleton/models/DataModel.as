@@ -149,5 +149,30 @@ package com.sitronnier.rlskeleton.models
 			}
 			return parent.children;			
 		} 
+		
+		/**
+		 * Same as getPagesByParent but without the pages marked as "excluded" or "menuhidden" (see sitemap.xml)
+		 * @param parent page
+		 */
+		public function getMenuPagesByParent(parent:PageVO = null):Array
+		{
+			var a:Array = [];
+			if (parent == null)
+			{
+				var list:XMLList = _sitemap.child("page");
+				for each (var listItem:XML in list)
+				{
+					if (listItem.@excluded.toString() != "true" && listItem.@menuhidden.toString() != "true") a.push(getPageById(listItem.@id.toString()));
+				}
+			}
+			else
+			{
+				for each (var page:PageVO in parent.children)
+				{
+					if (!page.excluded && !page.hiddenFromMenu) a.push(page);
+				}	
+			}
+			return a;			
+		} 
 	}
 }

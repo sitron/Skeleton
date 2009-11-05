@@ -13,6 +13,7 @@ package com.sitronnier.rlskeleton.commands
 	import com.sitronnier.rlskeleton.views.components.pages.Contact;
 	import com.sitronnier.rlskeleton.views.components.pages.Home;
 	import com.sitronnier.rlskeleton.views.components.pages.News;
+	import com.sitronnier.rlskeleton.views.components.pages.Orphan;
 	import com.sitronnier.rlskeleton.views.mediators.MenuMediator;
 	import com.sitronnier.rlskeleton.views.mediators.PageMediator;
 	import com.sitronnier.rlskeleton.views.mediators.RootMediator;
@@ -75,6 +76,7 @@ package com.sitronnier.rlskeleton.commands
 			mediatorMap.mapView(Home, PageMediator);
 			mediatorMap.mapView(News, PageMediator);
 			mediatorMap.mapView(Contact, PageMediator);
+			mediatorMap.mapView(Orphan, PageMediator);
 			
 			// register menu page
 			mediatorMap.mapView(BasicMenu, MenuMediator);

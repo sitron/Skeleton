@@ -1,9 +1,11 @@
 package com.sitronnier.rlskeleton.views.mediators
 {
 	import com.sitronnier.rlskeleton.events.PageEvent;
+	import com.sitronnier.rlskeleton.models.DataModel;
 	import com.sitronnier.rlskeleton.models.FlowModel;
 	import com.sitronnier.rlskeleton.views.components.pages.AbstractPage;
 	import com.sitronnier.rlskeleton.views.events.PageViewEvent;
+	import com.sitronnier.rlskeleton.vos.PageVO;
 	
 	import org.robotlegs.mvcs.Mediator;
 	
@@ -31,10 +33,12 @@ package com.sitronnier.rlskeleton.views.mediators
 	 */
 	
 	public class PageMediator extends Mediator
-	{
-		
+	{		
 		[Inject]
 		public var flowModel:FlowModel;
+		
+		[Inject]
+		public var dataModel:DataModel;
 		
 		public function PageMediator()
 		{
@@ -44,15 +48,39 @@ package com.sitronnier.rlskeleton.views.mediators
 		// PROTECTED, PRIVATE
 		//________________________________________________________________________________________________
 		
+		// System event handlers
+		
 		protected function _onPageChange(event:PageEvent):void
 		{
-			if (event.oldPageId == pageView.id) pageView.transitionOut();
+			if (flowModel.currentPage.excluded)
+			{
+				
+			}
+			else 
+			{
+				pageView.transitionOut();	
+			}
 		}
+		
+		protected function _onPageExcluded(event:PageEvent):void
+		{
+			var page:PageVO = dataModel.getPageById(event.pageId);
+			pageView.onPageExcluded(page);
+		} 
+		
+		protected function _onPageExcludedReset(event:PageEvent):void
+		{
+			var page:PageVO = dataModel.getPageById(event.pageId);
+			pageView.onPageExcludedReset(page);
+		} 
 		
 		protected function _onTransitionOutComplete(event:PageEvent):void
 		{
 			if (flowModel.currentPage.id == pageView.id) pageView.transitionIn();
 		}
+		
+		
+		// View event handlers
 		
 		protected function _onPageTransitionOutComplete(event:PageViewEvent):void
 		{
@@ -77,6 +105,8 @@ package com.sitronnier.rlskeleton.views.mediators
 		{
 			eventMap.mapListener(eventDispatcher, PageEvent.ON_PAGE_CHANGE, _onPageChange);
 			eventMap.mapListener(eventDispatcher, PageEvent.ON_TRANSITION_OUT_COMPLETE, _onTransitionOutComplete);
+			eventMap.mapListener(eventDispatcher, PageEvent.PAGE_EXCLUDED, _onPageExcluded);
+			eventMap.mapListener(eventDispatcher, PageEvent.PAGE_EXCLUDED_RESET, _onPageExcludedReset);
 			
 			pageView.addEventListener(PageViewEvent.CHANGE_PAGE_REQUEST, _onChangePageRequest);
 			pageView.addEventListener(PageViewEvent.ON_TRANSITION_OUT_COMPLETE, _onPageTransitionOutComplete);

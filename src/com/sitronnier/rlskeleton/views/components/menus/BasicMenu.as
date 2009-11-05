@@ -31,6 +31,9 @@ package com.sitronnier.rlskeleton.views.components.menus
 	
 	public class BasicMenu extends Sprite
 	{
+		// THIS IS JUST A BASIC IMPLEMENTATION OF A 1 LEVEL MENU
+		// TODO: implement a tree menu
+		
 		protected static const VERTICAL_SEP:Number = 1;
 		protected var _data:Array = [];
 		protected var _items:Array = [];
@@ -42,9 +45,6 @@ package com.sitronnier.rlskeleton.views.components.menus
 		
 		// PROTECTED, PRIVATE
 		//________________________________________________________________________________________________
-		
-		// THIS IS JUST A BASIC IMPLEMENTATION OF A 1 LEVEL MENU
-		// TODO: implement a tree menu
 		
 		/**
 		 * Draw menu
@@ -75,20 +75,28 @@ package com.sitronnier.rlskeleton.views.components.menus
 		// PUBLIC
 		//________________________________________________________________________________________________
 		
+		/**
+		 * update menu data, called only on startup (automatic) or when new pages are added (should be called manually in this case)
+		 */
 		public function update(a:Array):void
 		{
 			_data = a;
 			_draw();
 		} 
 		
+		/**
+		 * On page change, update menu state
+		 */
 		public function updateSelection(selectedPage:PageVO):void
 		{
-			// put all items to unselected
+			if (selectedPage.excluded && selectedPage.parent != null) var excludedParent:PageVO = selectedPage.parent;
+			
 			var item:MenuItem;
 			for (var i:int=0; i<_items.length; i++)
 			{
 				item = _items[i] as MenuItem;
 				if (item.page.id == selectedPage.id) item.state = MenuItem.STATE_SELECTED;
+				else if (excludedParent != null && item.page.id == excludedParent.id) item.state = MenuItem.STATE_SELECTED;  
 				else item.state = MenuItem.STATE_UN_SELECTED;
 			}
 		} 

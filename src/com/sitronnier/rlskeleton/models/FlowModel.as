@@ -68,6 +68,7 @@ package com.sitronnier.rlskeleton.models
 			}
 			
 			var oldPage:PageVO;
+			var e:PageEvent;
 			
 			if (_currentPage != null)
 			{
@@ -85,13 +86,49 @@ package com.sitronnier.rlskeleton.models
 				dispatch(new PageEvent(PageEvent.PAGE_WILL_CHANGE, vo.id));
 			}
 			
+			if (vo.excluded)
+			{
+				if (oldPage == null)
+				{
+					_currentPage = vo.parent;
+					dispatch(new PageEvent(PageEvent.ON_PAGE_CHANGE, _currentPage.id));
+				}
+				else
+				{
+					if (oldPage.id == vo.parent.id) {}
+					else if (oldPage.excluded && oldPage.parent.id == vo.parent.id) {}
+					else
+					{
+						_currentPage = vo.parent;
+						e = new PageEvent(PageEvent.ON_PAGE_CHANGE, _currentPage.id);
+						e.oldPageId = oldPage.id;
+						dispatch(e);	
+					}
+				}
+			}
+			
 			// create new page
 			_currentPage = vo;
 			
-			if (oldPage != null) _oldPages.push(oldPage);
+			if (oldPage != null) 
+			{
+				_oldPages.push(oldPage);
+				
+				// if current page is excluded and wanted page is parent
+				if (oldPage.excluded && !_currentPage.excluded && _currentPage.id == oldPage.parent.id)
+				{
+					e = new PageEvent(PageEvent.PAGE_EXCLUDED_RESET, _currentPage.id);
+					e.oldPageId = oldPage.id;
+					dispatch(e);	
+					
+					SWFAddress.setValue(vo.urlFriendly.toLowerCase());
+					
+					return;
+				}
+			}
 			
 			// dispatch change event
-			var e:PageEvent = new PageEvent(PageEvent.ON_PAGE_CHANGE, _currentPage.id);
+			e = new PageEvent(PageEvent.ON_PAGE_CHANGE, _currentPage.id);
 			e.oldPageId = oldPage != null? oldPage.id : null;
 			dispatch(e);	
 						

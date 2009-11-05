@@ -3,6 +3,7 @@ package com.sitronnier.rlskeleton.views.mediators
 	import com.sitronnier.rlskeleton.events.DataEvent;
 	import com.sitronnier.rlskeleton.events.PageEvent;
 	import com.sitronnier.rlskeleton.models.DataModel;
+	import com.sitronnier.rlskeleton.models.Errors;
 	import com.sitronnier.rlskeleton.models.FlowModel;
 	import com.sitronnier.rlskeleton.views.components.menus.BasicMenu;
 	import com.sitronnier.rlskeleton.views.components.pages.AbstractPage;
@@ -70,10 +71,23 @@ package com.sitronnier.rlskeleton.views.mediators
 		protected function _onPageChange(event:PageEvent):void
 		{
 			var currentPageVO:PageVO = flowModel.currentPage;
-			var clazz:Class = getDefinitionByName(DataModel.PAGE_PACKAGE + currentPageVO.type) as Class;
-			_currentPage = new clazz(currentPageVO) as AbstractPage;
-			_currentPage.initialize();
-			contextView.addChild(_currentPage);
+			if (currentPageVO.type == null && !currentPageVO.excluded) 
+			{
+				throw Errors.getErrorWithParam(Errors.NO_CLASS_TYPE_DEFINED, currentPageVO.id);
+				return;
+			} 
+			
+			if (currentPageVO.excluded)
+			{
+				dispatch(new PageEvent(PageEvent.PAGE_EXCLUDED, currentPageVO.id));
+			}
+			else
+			{
+				var clazz:Class = getDefinitionByName(DataModel.PAGE_PACKAGE + currentPageVO.type) as Class;
+				_currentPage = new clazz(currentPageVO) as AbstractPage;
+				_currentPage.initialize();
+				contextView.addChild(_currentPage);	
+			}
 		}
 		
 		protected function _onTransitionOutComplete(event:PageEvent):void
@@ -124,7 +138,7 @@ package com.sitronnier.rlskeleton.views.mediators
 			cm.hideBuiltInItems();
 			
 			// only first level menu is used for context menu
-			var firstLevel_menudata:Array = dataModel.getPagesByParent();
+			var firstLevel_menudata:Array = dataModel.getMenuPagesByParent();
 			for each (var page:PageVO in firstLevel_menudata)
 			{
 				var cmenuitem:ContextMenuItem = new ContextMenuItem(page.urlFriendly);

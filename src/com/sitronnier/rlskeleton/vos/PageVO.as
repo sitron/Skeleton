@@ -29,12 +29,16 @@ package com.sitronnier.rlskeleton.vos
 		public var id:String;
 		public var title:String;
 		public var urlFriendly:String;
+		public var excluded:Boolean;
+		public var hiddenFromMenu:Boolean;
 		public var isDefault:Boolean = false;
 		public var type:String;
 		public var content:XML;		
 		public var children:Array = [];
-		public var nbChildren:int = 0;
 		public var parent:PageVO;
+		
+		// helper result cache
+		protected var _excludedChildren:Array;
 		
 		public function PageVO(xml:XML = null)
 		{
@@ -49,6 +53,8 @@ package com.sitronnier.rlskeleton.vos
 			xmldata = xml;
 			id = xml.@id.toString();
 			type = xml.@type.toString();
+			excluded = xml.@excluded.toString() == "true"? true:false;
+			hiddenFromMenu = xml.@menuhidden.toString() == "true"? true:false;
 			urlFriendly = xml.@urlfriendly != null? xml.@urlfriendly.toString() : "";
 			isDefault = xml.@isDefault != null? xml.@isDefault.toString() : false;
 			title = xml.title != null? xml.title : "";
@@ -63,8 +69,51 @@ package com.sitronnier.rlskeleton.vos
 		 */
 		public function addChild(page:PageVO):void
 		{
+			refresh();
 			children.push(page);
-			nbChildren = children.length;
+		} 
+		
+		/**
+		 * Helper method to know if a page has visible children (could be useful for menus for ex.)
+		 */
+		public function hasNonExcludedChildren():Boolean
+		{
+			if (nbChildren == 0) return false;
+			for each (var p:PageVO in children)
+			{
+				if (!p.excluded && !p.hiddenFromMenu) return true;
+			}
+			return false;
+		} 
+		
+		/**
+		 * Helper method to get all excluded children
+		 */
+		public function get excludedChildren():Array
+		{
+			if (_excludedChildren != null) return _excludedChildren;
+			_excludedChildren = [];
+			for each (var p:PageVO in children)
+			{
+				if (p.excluded) _excludedChildren.push(p);
+			}
+			return _excludedChildren;
+		} 
+		
+		/**
+		 * Helper
+		 */
+		public function get nbChildren():int
+		{
+			return children.length;	
+		} 
+		
+		/**
+		 * If new data is added on the fly (after initialization) clear caches
+		 */
+		public function refresh():void
+		{
+			_excludedChildren = null;
 		} 
 	}
 }

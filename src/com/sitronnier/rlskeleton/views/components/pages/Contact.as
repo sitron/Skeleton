@@ -46,7 +46,7 @@ package com.sitronnier.rlskeleton.views.components.pages
 		
 		protected function _onShapeClick(event:MouseEvent):void
 		{
-			dispatchEvent(new PageViewEvent(PageViewEvent.CHANGE_PAGE_REQUEST, "Home"));
+			dispatchEvent(new PageViewEvent(PageViewEvent.CHANGE_PAGE_REQUEST, "Orphan"));
 		}
 		
 		

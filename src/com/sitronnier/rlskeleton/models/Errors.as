@@ -28,6 +28,7 @@ package com.sitronnier.rlskeleton.models
 		public static const DUPLICATED_ID:Error = new Error("Page ids must be unique", "DUPLICATED_ID");
 		public static const LOADING_PROBLEM:Error = new Error("Error loading", "LOADING_PROBLEM");
 		public static const PAGE_IS_NULL:Error = new Error("Page is null", "PAGE_IS_NULL");
+		public static const NO_CLASS_TYPE_DEFINED:Error = new Error("No class type defined", "NO_CLASS_TYPE_DEFINED");
 		
 		public function Errors()
 		{

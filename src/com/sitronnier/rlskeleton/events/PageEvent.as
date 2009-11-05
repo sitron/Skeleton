@@ -40,6 +40,8 @@ package com.sitronnier.rlskeleton.events
 		public static const ON_TRANSITION_IN_COMPLETE:String = "ON_TRANSITION_IN_COMPLETE";
 		public static const ON_TRANSITION_OUT_START:String = "ON_TRANSITION_OUT_START";
 		public static const ON_TRANSITION_OUT_COMPLETE:String = "ON_TRANSITION_OUT_COMPLETE";
+		public static const PAGE_EXCLUDED:String = "PAGE_EXCLUDED";
+		public static const PAGE_EXCLUDED_RESET:String = "PAGE_EXCLUDED_RESET";
 		
 		public var pageId:String;
 		public var oldPageId:String;

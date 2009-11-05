@@ -66,13 +66,18 @@ package com.sitronnier.rlskeleton.views.mediators
 		
 		override public function onRegister() : void
 		{
+			// view event handler
 			menu.addEventListener(PageViewEvent.CHANGE_PAGE_REQUEST, _onChangePageRequest);
+			
+			// system event handlers
+			// menu reacts when the actual page ends its transition or when an excluded page is called
 			eventMap.mapListener(eventDispatcher, PageEvent.ON_TRANSITION_OUT_COMPLETE, _onPageChange, PageEvent);
+			eventMap.mapListener(eventDispatcher, PageEvent.PAGE_EXCLUDED, _onPageChange, PageEvent);
 			
 			// THIS IS JUST A BASIC IMPLEMENTATION OF A 1 LEVEL MENU
 			// TODO: implement a tree menu			
 			// get menu data
-			var firstLevel_menudata:Array = dataModel.getPagesByParent();
+			var firstLevel_menudata:Array = dataModel.getMenuPagesByParent();
 			menu.update(firstLevel_menudata);
 			menu.updateSelection(flowModel.currentPage);
 		}

@@ -61,36 +61,66 @@ package com.sitronnier.rlskeleton.views.components.pages
 		// PUBLIC
 		//________________________________________________________________________________________________
 		
+		/**
+		 * Override to "draw" your page (ie: add visual content)
+		 */
 		public function draw():void
 		{
 			
 		} 
 		
+		/**
+		 * Initialize page
+		 */
 		public function initialize():void
 		{
 			dispatchEvent(new PageViewEvent(PageViewEvent.INITIALIZED, _id));			
 			draw();
 		} 
 		
+		/**
+		 * Override to react when new excluded page is selectioned
+		 */
+		public function onPageExcluded(page:PageVO):void
+		{
+			
+		} 
+		
+		/**
+		 * Override to react when actual page is excluded and wanted page is its parent (reset)
+		 */
+		public function onPageExcludedReset(page:PageVO):void
+		{
+			
+		} 
+		
+		/**
+		 * helper (not really necessary... but...)
+		 */
 		public function get id():String
 		{
 			return _id;
 		} 
 		
+		/**
+		 * Override and do transition here, than call _onTransitionInOver 
+		 */
 		public function transitionIn():void
 		{
 			dispatchEvent(new PageViewEvent(PageViewEvent.ON_TRANSITION_IN_START, _id));
-			
-			// override and do transition here, than call _onTransitionInOver
 		} 
 		
+		/**
+		 * Override and do transition here, than call _onTransitionOutOver 
+		 */
 		public function transitionOut():void
 		{
 			dispatchEvent(new PageViewEvent(PageViewEvent.ON_TRANSITION_OUT_START, _id));
-			
-			// override and do transition here, than call _onTransitionOutOver
 		} 
 		
+		/**
+		 * Delete current page
+		 */
 		public function dispose():void
 		{
 			trace("dispose page: " + _data.id);

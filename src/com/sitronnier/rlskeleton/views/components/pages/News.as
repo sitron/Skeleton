@@ -1,10 +1,13 @@
 package com.sitronnier.rlskeleton.views.components.pages
 {
+	import com.sitronnier.rlskeleton.views.components.uis.NewsItem;
 	import com.sitronnier.rlskeleton.views.events.PageViewEvent;
 	import com.sitronnier.rlskeleton.vos.PageVO;
 	
 	import flash.display.Sprite;
 	import flash.events.MouseEvent;
+	import flash.text.TextField;
+	import flash.text.TextFieldAutoSize;
 	
 	/**
 	 * <p><b>Author:</b> Laurent Prodon - <a href="http://www.sitronnier.com/" target="_blank">www.sitronnier.com</a><br/>
@@ -31,7 +34,9 @@ package com.sitronnier.rlskeleton.views.components.pages
 	
 	public class News extends BasePage
 	{
-		protected var s:Sprite;
+		protected var _title:TextField;
+		protected var _newsItems:Array = [];
+		protected var _newsTextContainer:TextField;
 		
 		public function News(data:PageVO)
 		{
@@ -44,10 +49,33 @@ package com.sitronnier.rlskeleton.views.components.pages
 		// PROTECTED, PRIVATE
 		//________________________________________________________________________________________________
 		
-		protected function _onShapeClick(event:MouseEvent):void
+		protected function _onNewsClick(event:MouseEvent):void
 		{
-			dispatchEvent(new PageViewEvent(PageViewEvent.CHANGE_PAGE_REQUEST, "Contact"));
+			var vo:PageVO = (event.currentTarget as NewsItem).data; 
+			dispatchEvent(new PageViewEvent(PageViewEvent.CHANGE_PAGE_REQUEST, vo.id));
 		}
+		
+		protected function _showNews(p:PageVO):void
+		{
+			if (_newsTextContainer != null) 
+			{
+				removeChild(_newsTextContainer);
+				_newsTextContainer = null;
+			}
+			_newsTextContainer = new TextField();
+			_newsTextContainer.x = 250;
+			_newsTextContainer.y = 140;
+			addChild(_newsTextContainer);
+			_newsTextContainer.autoSize = TextFieldAutoSize.LEFT;
+			_newsTextContainer.multiline = true;
+			_newsTextContainer.width = 200;
+			_newsTextContainer.htmlText = p.content.text.toString();
+		} 
+		
+		protected function _resetNews():void
+		{
+			trace("reset news");
+		} 
 		
 		
 		// PUBLIC
@@ -55,24 +83,53 @@ package com.sitronnier.rlskeleton.views.components.pages
 		
 		override public function draw() : void
 		{
-			s = new Sprite();
-			s.graphics.beginFill(0xff9900);
-			s.graphics.drawRect(0, 0, 20, 20);
-			s.graphics.endFill();
-			s.x = Math.random() * 500;
-			s.y = Math.random() * 300;
-			addChild(s);
-			s.addEventListener(MouseEvent.CLICK, _onShapeClick);
-			s.buttonMode = true;
+			_title = new TextField();
+			_title.text = "NEWS";
+			_title.x = 100;
+			_title.y = 100;
+			addChild(_title);
+			
+			var h:Number = 0;
+			var newsContainer:Sprite = new Sprite();
+			addChild(newsContainer);
+			newsContainer.x = 100;
+			newsContainer.y = 140;
+			
+			// for each excluded child create a link (this is just an example of how handling excluded pages can be done)
+			for each (var p:PageVO in _data.excludedChildren)
+			{
+				var newsitem:NewsItem = new NewsItem(p);
+				newsitem.addEventListener(MouseEvent.CLICK, _onNewsClick, false, 0, true);
+				newsitem.buttonMode = true;
+				newsitem.mouseChildren = false;
+				_newsItems.push(newsitem);
+				newsContainer.addChild(newsitem);
+				newsitem.y = h;
+				h += newsitem.height + 2;
+			}
 			
 			alpha = 0;	
 		}
 		
+		override public function onPageExcluded(page:PageVO) : void
+		{
+			_showNews(page);
+		}
+		
+		override public function onPageExcludedReset(page:PageVO) : void
+		{
+			_resetNews();
+		}
+		
 		override public function dispose() : void
 		{			
-			s.removeEventListener(MouseEvent.CLICK, _onShapeClick);
-			removeChild(s);
-			s = null;
+			for each (var item:NewsItem in _newsItems)
+			{
+				item.removeEventListener(MouseEvent.CLICK, _onNewsClick);
+				item.parent.removeChild(item);
+			}
+			_newsItems.splice(0);
+			_title = null;
 			
 			super.dispose();
 		}
