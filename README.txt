@@ -8,9 +8,11 @@ Features:
 - exclude page mechanism to update url for intra-page (version 1, very fragile...)
 
 Todo:
+- should PageMediator call a "start()" function in its view component? (so that a page doesn't have to add a onAddedToStage listener)
 - tree menu
 - text and style utils (somaText for ex.)
 - use RL loading utility rather than Bulkloader
+- project preloader
 - ...
 
 
