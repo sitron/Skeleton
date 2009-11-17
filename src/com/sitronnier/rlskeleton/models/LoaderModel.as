@@ -66,7 +66,7 @@ package com.sitronnier.rlskeleton.models
 			{
 				loader.clear();
 				loader = null;
-				_loaders[name] == null;
+				_loaders[name] = null;
 			}
 		} 
 	}
