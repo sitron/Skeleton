@@ -74,9 +74,19 @@ package com.sitronnier.rlskeleton.views.mediators
 			pageView.onPageExcludedReset(page);
 		} 
 		
+		/**
+		 * Triggered when old page finishes its out-transition 
+		 * @param event
+		 */		
 		protected function _onTransitionOutComplete(event:PageEvent):void
 		{
+			// TODO: the excluded model is very fragile: what if the current page is 2 depths away from non-excluded page?
 			if (flowModel.currentPage.id == pageView.id) pageView.transitionIn();
+			else if (flowModel.currentPage.excluded && flowModel.currentPage.parent.id == pageView.id)
+			{
+				pageView.transitionIn();
+			}
+			else{}
 		}
 		
 		
