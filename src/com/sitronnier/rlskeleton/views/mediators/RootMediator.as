@@ -86,18 +86,19 @@ package com.sitronnier.rlskeleton.views.mediators
 				var clazz:Class = getDefinitionByName(DataModel.PAGE_PACKAGE + currentPageVO.type) as Class;
 				_currentPage = new clazz(currentPageVO) as AbstractPage;
 				_currentPage.initialize();
-				contextView.addChild(_currentPage);	
+				getLayer(PAGE_LAYER).addChild(_currentPage);	
 			}
 		}
 		
 		protected function _onTransitionOutComplete(event:PageEvent):void
 		{
-			for (var i:int=0; i<contextView.numChildren; i++)
+			var pl:Sprite = getLayer(PAGE_LAYER);
+			for (var i:int=0; i<pl.numChildren; i++)
 			{
-				var c:* = contextView.getChildAt(i);
+				var c:* = pl.getChildAt(i);
 				if (c is AbstractPage && AbstractPage(c).id == event.pageId) 
 				{
-					contextView.removeChild(c);
+					pl.removeChild(c);
 					AbstractPage(c).dispose();
 					c = null;
 				}
