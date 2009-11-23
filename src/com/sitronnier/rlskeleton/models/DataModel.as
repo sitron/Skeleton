@@ -4,6 +4,7 @@ package com.sitronnier.rlskeleton.models
 	import com.sitronnier.rlskeleton.vos.PageVO;
 	
 	import flash.utils.Dictionary;
+	import flash.utils.getDefinitionByName;
 	
 	import nl.demonsters.debugger.MonsterDebugger;
 	
@@ -65,17 +66,36 @@ package com.sitronnier.rlskeleton.models
 			
 			for each (var page:XML in pages)
 			{
-				var pagevo:PageVO = new PageVO(page);
+				var pagevo:PageVO;
+				var votype:String = page.@voType.toString();
+				
+				// create correct pagevo type
+				// don't forget to include the necessary classes in the swf, otherwise you'll have a compile time error (anything then PageVO)
+				if (page.@voType.toString() != "")
+				{
+					var clazz:Class = getDefinitionByName(page.@voType.toString()) as Class;
+					pagevo = new clazz(page) as PageVO;
+				}
+				else
+				{
+					pagevo = new PageVO(page);
+				}
+				
+				// if first make it default page (overriden after if a page is marked as @default)
 				if (_defaultPage == null) _defaultPage = pagevo;
 				
 				if (_pages[pagevo.id] != null) 
 				{
 					throw Errors.getErrorWithParam(Errors.DUPLICATED_ID, pagevo.id);
 				}
+				
+				// add to hash map
 				_pages[pagevo.id] = pagevo;	
 				
+				// is default
 				if (pagevo.isDefault) _defaultPage = pagevo;
 				
+				// store hierarchy info
 				var parentname:String = XML(page.parent()).name().localName;
 				if (parentname != "site")
 				{
