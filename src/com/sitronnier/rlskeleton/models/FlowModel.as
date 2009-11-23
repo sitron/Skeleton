@@ -86,6 +86,11 @@ package com.sitronnier.rlskeleton.models
 				dispatch(new PageEvent(PageEvent.PAGE_WILL_CHANGE, vo.id));
 			}
 			
+			// if the page is just a container (aka should be intialized but re-directed to one of its children)
+			// show its "showChild" index child (see @showChild in sitemap.xml)
+			if (vo.showChild != -1) vo = vo.children[vo.showChild] as PageVO;
+			
+			// if the page is an excluded page (see @excluded in sitemap.xml)
 			if (vo.excluded)
 			{
 				if (oldPage == null)

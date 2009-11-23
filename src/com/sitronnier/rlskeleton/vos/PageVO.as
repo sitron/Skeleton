@@ -36,6 +36,7 @@ package com.sitronnier.rlskeleton.vos
 		public var content:XML;		
 		public var children:Array = [];
 		public var parent:PageVO;
+		public var showChild:int = -1;
 		
 		// helper result cache
 		protected var _excludedChildren:Array;
@@ -56,6 +57,7 @@ package com.sitronnier.rlskeleton.vos
 			excluded = xml.@excluded.toString() == "true"? true:false;
 			hiddenFromMenu = xml.@menuhidden.toString() == "true"? true:false;
 			urlFriendly = xml.@urlfriendly != null? xml.@urlfriendly.toString() : "";
+			showChild = xml.@showChild.toString() == "" ? -1 : Number(xml.@showChild.toString());
 			isDefault = xml.@isDefault != null? xml.@isDefault.toString() : false;
 			title = xml.title != null? xml.title : "";
 			content = xml.content[0] is XML? xml.content[0] : null;
