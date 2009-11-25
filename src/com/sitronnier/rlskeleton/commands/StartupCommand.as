@@ -14,8 +14,10 @@ package com.sitronnier.rlskeleton.commands
 	import com.sitronnier.rlskeleton.views.components.pages.Home;
 	import com.sitronnier.rlskeleton.views.components.pages.News;
 	import com.sitronnier.rlskeleton.views.components.pages.Orphan;
+	import com.sitronnier.rlskeleton.views.components.pages.Portfolio;
 	import com.sitronnier.rlskeleton.views.mediators.MenuMediator;
 	import com.sitronnier.rlskeleton.views.mediators.PageMediator;
+	import com.sitronnier.rlskeleton.views.mediators.PortfolioMediator;
 	import com.sitronnier.rlskeleton.views.mediators.RootMediator;
 	
 	import flash.events.Event;
@@ -77,6 +79,7 @@ package com.sitronnier.rlskeleton.commands
 			mediatorMap.mapView(News, PageMediator);
 			mediatorMap.mapView(Contact, PageMediator);
 			mediatorMap.mapView(Orphan, PageMediator);
+			mediatorMap.mapView(Portfolio, PortfolioMediator);
 			
 			// register menu page
 			mediatorMap.mapView(BasicMenu, MenuMediator);
@@ -91,7 +94,15 @@ package com.sitronnier.rlskeleton.commands
 		{
 			loaderModel.getLoader(LoaderModel.INITIAL).removeEventListener(BulkLoader.COMPLETE, _onInitialDataLoaded);
 			loaderModel.disposeLoader(LoaderModel.INITIAL);
-			dispatch(new DataEvent(DataEvent.INITIAL_DATA_READY));
+			
+			// wait 1 frame
+			contextView.addEventListener(Event.ENTER_FRAME, _doAfter);			
 		}
+		
+		protected function _doAfter(event:Event):void
+		{
+			contextView.removeEventListener(Event.ENTER_FRAME, _doAfter);
+			dispatch(new DataEvent(DataEvent.INITIAL_DATA_READY));	
+		} 
 	}
 }

@@ -3,11 +3,13 @@
 <!--
  * urlfriendly should be unique for swfaddress to fully work, and "url style formated" (no accent, no white space, etc..)
  * page id must be unique
- * each page is parsed as a PageVO (see DataModel)
- * excluded pages (see excluded attribute) will update url but won't be treated as pages (they don't get instantiated) nor included in menu (useful for inner catergory items, like images in a portfolio for ex.)
- * menuhidden pages are instantiated but just don't show up in menu
+ * each page is parsed as a PageVO (see DataModel) or a customized subclass of PageVO
+ * "excluded" pages (see excluded attribute) will update url but won't be treated as pages (they don't get instantiated) nor included in menu (useful for inner catergory items, like images in a portfolio for ex.)
+ * "showChild" pages act as container, "showChild" is the index (0 based) of the first child to show. This attribute should be used if the page has excluded children and you want to directly show one of them (instantiate the page and redirects to its "showChild" index child)
+ * "menuhidden" pages are instantiated but just don't show up in menu
  * content is not parsed. It can be retrieved from any page (_data.content) as unparsed xml, just use it as you want.
  * a class definition corresponding to each page type must be included in swf see StartupCommand
+ * if you use custome sub PageVOs don't forget to include them in swf 
 -->
 
 <site>
@@ -30,6 +32,20 @@
 			</content>
 		</page>
     </page>
+
+	<page id="Portfolio" type="Portfolio" urlfriendly="portfolio" showChild="0">
+		<title><![CDATA[Portfolio]]></title>
+		<page id="Portfolio_1" urlfriendly="porfolio-1" excluded="true">
+			<content>
+				<img src="assets/imgs/img1.jpg" />
+			</content>
+		</page>
+		<page id="Portfolio_2" urlfriendly="porfolio-2" excluded="true">
+			<content>
+				<img src="assets/imgs/img2.jpg" />
+			</content>
+		</page>
+	</page>
     
     <page id="Contact" type="Contact" urlfriendly="contact">
     	<title><![CDATA[Contact]]></title>
