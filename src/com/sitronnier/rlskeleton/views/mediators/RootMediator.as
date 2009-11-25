@@ -107,7 +107,6 @@ package com.sitronnier.rlskeleton.views.mediators
 		
 		protected function _onInitData(event:DataEvent):void
 		{
-			_createLayers();
 			_addMenu();
 			_createContextMenu();
 		}
@@ -170,6 +169,8 @@ package com.sitronnier.rlskeleton.views.mediators
 		
 		override public function onRegister() : void
 		{
+			_createLayers();
+			
 			eventMap.mapListener(eventDispatcher, DataEvent.INITIAL_DATA_READY, _onInitData, DataEvent);
 			eventMap.mapListener(eventDispatcher, PageEvent.ON_PAGE_CHANGE, _onPageChange);
 			eventMap.mapListener(eventDispatcher, PageEvent.ON_TRANSITION_OUT_COMPLETE, _onTransitionOutComplete);
