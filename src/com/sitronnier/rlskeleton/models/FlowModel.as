@@ -43,6 +43,8 @@ package com.sitronnier.rlskeleton.models
 		// tag for swf address initialization
 		protected var _hasStarted:Boolean = false;
 		
+		protected var _initialPath:String;
+		
 		
 		public function FlowModel()
 		{
@@ -61,6 +63,8 @@ package com.sitronnier.rlskeleton.models
 		
 		protected function _changePage(vo:PageVO):void
 		{
+			MonsterDebugger.trace(this, "_changePage: " + vo.id, MonsterDebugger.COLOR_ERROR);
+			
 			if (vo == null)
 			{
 				throw Errors.getErrorWithParam(Errors.PAGE_IS_NULL);
@@ -75,7 +79,7 @@ package com.sitronnier.rlskeleton.models
 				// check that it's not the same page
 				if (_currentPage.id == vo.id)
 				{
-					trace("same page, no change");
+					MonsterDebugger.trace(this, "same page, no change");
 					return;
 				}
 				
@@ -86,11 +90,9 @@ package com.sitronnier.rlskeleton.models
 				dispatch(new PageEvent(PageEvent.PAGE_WILL_CHANGE, vo.id));
 			}
 			
-			// if the page is just a container (aka should be intialized but re-directed to one of its children)
-			// show its "showChild" index child (see @showChild in sitemap.xml)
+			// if the page is just a container show its "showChild" index child (see @showChild in sitemap.xml)
 			if (vo.showChild != -1) vo = vo.children[vo.showChild] as PageVO;
 			
-			// if the page is an excluded page (see @excluded in sitemap.xml)
 			if (vo.excluded)
 			{
 				if (oldPage == null)
@@ -136,7 +138,7 @@ package com.sitronnier.rlskeleton.models
 			e = new PageEvent(PageEvent.ON_PAGE_CHANGE, _currentPage.id);
 			e.oldPageId = oldPage != null? oldPage.id : null;
 			dispatch(e);	
-						
+			
 			// if no previous page, go directly to next
 			if (oldPage == null) dispatch(new PageEvent(PageEvent.ON_TRANSITION_OUT_COMPLETE));
 			
@@ -161,7 +163,12 @@ package com.sitronnier.rlskeleton.models
 			MonsterDebugger.trace(this, "url change : " + event.path);
 			var path:String = SWFAddress.getValue();
 			
-			if (!_hasStarted) return;
+			if (!_hasStarted) 
+			{
+				MonsterDebugger.trace(this, "initial path: " + path, MonsterDebugger.COLOR_WARNING);
+				if (path != "" && path != "/") _initialPath = path;
+				return;	
+			}
 			
 			// if is default path
 			if ((path == "/" || path == "")) 
@@ -170,23 +177,24 @@ package com.sitronnier.rlskeleton.models
 				return;
 			}
 			
-			if (path.substr(-1) == "/") path = path.substring(0, -1);
-			if (path.substr(0, 1) == "/") path = path.substring(1);
-			
-			_processUrlPath(path);
+			var pid:String = _getPageIdFromPath(path);
+			if (pid == null) show();
+			else show(pid);
 		} 
 		
 		/**
 		 * Get a page id (or null) from a path
 		 * @param path string with no preceding/ending slash
 		 */
-		protected function _processUrlPath(path:String):void
+		protected function _getPageIdFromPath(path:String):String
 		{
-//			MonsterDebugger.trace(this, "_processUrlPath: " + path);
+			if (path.substr(-1) == "/") path = path.substring(0, -1);
+			if (path.substr(0, 1) == "/") path = path.substring(1);
+			
+			//			MonsterDebugger.trace(this, "_processUrlPath: " + path);
 			var pageId:String = dataModel.getPageByUrl(path);
-//			MonsterDebugger.trace(this, "page found: " + pageId);
-			if (pageId == null) show();
-			else show(pageId);
+			//			MonsterDebugger.trace(this, "page found: " + pageId);
+			return pageId;
 		} 
 		
 		
@@ -199,10 +207,19 @@ package com.sitronnier.rlskeleton.models
 		 */
 		public function show(id:String = null):void
 		{
+			MonsterDebugger.trace(this, "show: " + id, MonsterDebugger.COLOR_WARNING);
 			if (!_hasStarted) _hasStarted = true;
 			
 			if (id == null) 
 			{
+				if (_initialPath != null)
+				{
+					var initPageId:String = _getPageIdFromPath(_initialPath);
+					MonsterDebugger.trace(this, "use initial page: " + initPageId);
+					_changePage(dataModel.getPageById(initPageId));
+					_initialPath = null;
+					return;
+				}
 				_changePage(dataModel.getDefaultPage());
 				return;
 			}
