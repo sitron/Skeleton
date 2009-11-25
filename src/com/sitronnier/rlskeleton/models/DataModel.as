@@ -6,8 +6,6 @@ package com.sitronnier.rlskeleton.models
 	import flash.utils.Dictionary;
 	import flash.utils.getDefinitionByName;
 	
-	import nl.demonsters.debugger.MonsterDebugger;
-	
 	import org.robotlegs.mvcs.Actor;
 	
 	/**
@@ -39,7 +37,7 @@ package com.sitronnier.rlskeleton.models
 		public static const PAGE_PACKAGE:String = "com.sitronnier.rlskeleton.views.components.pages.";
 		
 		// reference to sitemap base xml
-		protected var _sitemap:XML;
+		protected var _sitemap:SitemapHelper;
 		
 		// contains all the pages (as PageVO, in an unordered way)
 		protected var _pages:Dictionary = new Dictionary();
@@ -61,7 +59,7 @@ package com.sitronnier.rlskeleton.models
 		 */
 		protected function _splitForPages(xml:XML = null):void
 		{
-			var b:XML = xml == null? _sitemap : xml;
+			var b:XML = xml == null? _sitemap.data : xml;
 			var pages:XMLList = b.descendants("page");
 			
 			for each (var page:XML in pages)
@@ -116,12 +114,18 @@ package com.sitronnier.rlskeleton.models
 		 */
 		public function storeSiteMap(xml:XML):void
 		{
-			_sitemap = xml;
+			_sitemap = new SitemapHelper(xml);
 			_splitForPages();
+			
+			// not fantastic...
+			_sitemap.pages = _pages;
 			
 			dispatch(new DataEvent(DataEvent.NEW_PAGE_DATA));
 			
-			var homepage:PageVO = getPageById("Home");
+			// test
+//			var homepage:PageVO = getPageById("Home");
+//			var b:Boolean = _sitemap.shareSameVisibleParent("Portfolio_2_1", "Portfolio_2");
+//			var p:PageVO = getNonExcludedParent(getPageById("Portfolio_2_1"));
 		} 
 		
 		/**
@@ -130,7 +134,7 @@ package com.sitronnier.rlskeleton.models
 		 */
 		public function getPageById(id:String):PageVO
 		{
-			return _pages[id];	
+			return _sitemap.getPageById(id);	
 		} 
 		
 		/**
@@ -147,52 +151,48 @@ package com.sitronnier.rlskeleton.models
 		 */
 		public function getPageByUrl(url:String):String
 		{
-			var xmllist:XMLList = _sitemap.descendants("page").((@urlfriendly.toString()).toLowerCase()==url.toLowerCase());
-			MonsterDebugger.trace(this, xmllist);
-			if (xmllist.length() == 0) return null;
-			var xml:XML = xmllist[0] as XML;
-			var id:String = xml.@id;
-			return id;
+			var item:XML = _sitemap.getPageItemByAttribute("urlfriendly", url);
+			return item == null? null : item.@id;
 		} 
-		
-		public function getPagesByParent(parent:PageVO = null):Array
+					
+		/**
+		 * To know if 2 pages share the same non-excluded parent 
+		 * @param page1 PageVO instance
+		 * @param page2 PageVO instance
+		 * @return Boolean indicating if the page share the same non-excluded parent
+		 */	
+		public function areBrotherPages(page1:PageVO, page2:PageVO):Boolean
 		{
-			var a:Array = [];
-			if (parent == null)
-			{
-				var list:XMLList = _sitemap.child("page");
-				for each (var listItem:XML in list)
-				{
-					a.push(getPageById(listItem.@id.toString()));
-				}
-				return a;
-			}
-			return parent.children;			
+			return _sitemap.shareSameVisibleParent(page1.id, page2.id);
 		} 
 		
 		/**
-		 * Same as getPagesByParent but without the pages marked as "excluded" or "menuhidden" (see sitemap.xml)
-		 * @param parent page
-		 */
-		public function getMenuPagesByParent(parent:PageVO = null):Array
+		 * To get the first non-excluded parent page 
+		 * @param page instance of PageVO
+		 * @return the parent PageVO
+		 */		
+		public function getNonExcludedParent(page:PageVO):PageVO
 		{
-			var a:Array = [];
-			if (parent == null)
-			{
-				var list:XMLList = _sitemap.child("page");
-				for each (var listItem:XML in list)
-				{
-					if (listItem.@excluded.toString() != "true" && listItem.@menuhidden.toString() != "true") a.push(getPageById(listItem.@id.toString()));
-				}
-			}
-			else
-			{
-				for each (var page:PageVO in parent.children)
-				{
-					if (!page.excluded && !page.hiddenFromMenu) a.push(page);
-				}	
-			}
-			return a;			
+			return _pages[_sitemap.getVisibleParentItem(page.id).@id.toString()];	
+		} 
+		
+		/**
+		 * Get children pages. 
+		 * @param parent if null 1 level pages are returned
+		 * @return Array of pages
+		 */		
+		public function getChildrenPages(parent:PageVO = null):Array
+		{
+			return _sitemap.getChildrenPages(parent);	
+		} 
+		
+		/**
+		 * Same as getChildrenPages but without the pages marked as "excluded" or "menuhidden" (see sitemap.xml)
+		 * @param parent page if null 1 level pages are returned
+		 */
+		public function getChildrenNonExcludedPages(parent:PageVO = null):Array
+		{
+			return _sitemap.getChildrenNonExcludedPages(parent);	
 		} 
 	}
 }

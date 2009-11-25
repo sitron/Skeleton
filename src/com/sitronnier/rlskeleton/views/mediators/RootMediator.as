@@ -138,7 +138,7 @@ package com.sitronnier.rlskeleton.views.mediators
 			cm.hideBuiltInItems();
 			
 			// only first level menu is used for context menu
-			var firstLevel_menudata:Array = dataModel.getMenuPagesByParent();
+			var firstLevel_menudata:Array = dataModel.getChildrenNonExcludedPages();
 			for each (var page:PageVO in firstLevel_menudata)
 			{
 				var cmenuitem:ContextMenuItem = new ContextMenuItem(page.urlFriendly);

@@ -29,6 +29,7 @@ package com.sitronnier.rlskeleton.models
 		public static const LOADING_PROBLEM:Error = new Error("Error loading", "LOADING_PROBLEM");
 		public static const PAGE_IS_NULL:Error = new Error("Page is null", "PAGE_IS_NULL");
 		public static const NO_CLASS_TYPE_DEFINED:Error = new Error("No class type defined", "NO_CLASS_TYPE_DEFINED");
+		public static const NO_CHILD_WITH_THIS_INDEX:Error = new Error("No child with this index", "NO_CHILD_WITH_THIS_INDEX");
 		
 		public function Errors()
 		{

@@ -77,7 +77,7 @@ package com.sitronnier.rlskeleton.views.mediators
 			// THIS IS JUST A BASIC IMPLEMENTATION OF A 1 LEVEL MENU
 			// TODO: implement a tree menu			
 			// get menu data
-			var firstLevel_menudata:Array = dataModel.getMenuPagesByParent();
+			var firstLevel_menudata:Array = dataModel.getChildrenNonExcludedPages();
 			menu.update(firstLevel_menudata);
 			menu.updateSelection(flowModel.currentPage);
 		}

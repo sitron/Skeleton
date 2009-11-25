@@ -90,23 +90,34 @@ package com.sitronnier.rlskeleton.models
 				dispatch(new PageEvent(PageEvent.PAGE_WILL_CHANGE, vo.id));
 			}
 			
-			// if the page is just a container show its "showChild" index child (see @showChild in sitemap.xml)
-			if (vo.showChild != -1) vo = vo.children[vo.showChild] as PageVO;
+			// if the page is just a container redirect to its "showChild" index child (see @showChild in sitemap.xml)			
+			if (vo.showChild != -1) 
+			{
+				vo = vo.children[vo.showChild] as PageVO;	
+				if (vo == null)
+				{
+					throw Errors.getErrorWithParam(Errors.NO_CHILD_WITH_THIS_INDEX, vo.showChild);
+					return;
+				}
+			}
 			
+			// if the page is excluded (see @excluded in sitemap) check the relationship between current page and excluded
 			if (vo.excluded)
 			{
+				// if no present page, we need to show its visible parent first, than call excluded on it
 				if (oldPage == null)
 				{
-					_currentPage = vo.parent;
+					_currentPage = dataModel.getNonExcludedParent(vo);
 					dispatch(new PageEvent(PageEvent.ON_PAGE_CHANGE, _currentPage.id));
 				}
+				// if there is a present page, we need to check its relationship with the new page
 				else
 				{
 					if (oldPage.id == vo.parent.id) {}
-					else if (oldPage.excluded && oldPage.parent.id == vo.parent.id) {}
+					else if (oldPage.excluded && dataModel.areBrotherPages(oldPage, vo)) {}
 					else
 					{
-						_currentPage = vo.parent;
+						_currentPage = dataModel.getNonExcludedParent(vo);
 						e = new PageEvent(PageEvent.ON_PAGE_CHANGE, _currentPage.id);
 						e.oldPageId = oldPage.id;
 						dispatch(e);	
@@ -121,8 +132,8 @@ package com.sitronnier.rlskeleton.models
 			{
 				_oldPages.push(oldPage);
 				
-				// if current page is excluded and wanted page is parent
-				if (oldPage.excluded && !_currentPage.excluded && _currentPage.id == oldPage.parent.id)
+				// if old page is excluded and wanted page is parent
+				if (oldPage.excluded && !_currentPage.excluded && _currentPage.id == dataModel.getNonExcludedParent(oldPage).id)
 				{
 					e = new PageEvent(PageEvent.PAGE_EXCLUDED_RESET, _currentPage.id);
 					e.oldPageId = oldPage.id;

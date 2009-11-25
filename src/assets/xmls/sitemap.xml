@@ -44,6 +44,11 @@
 			<content>
 				<img src="assets/imgs/img2.jpg" />
 			</content>
+			<page id="Portfolio_2_1" urlfriendly="porfolio-2-1" excluded="true">
+				<content>
+					<text><![CDATA[Deep down text]]></text>
+				</content>
+			</page>
 		</page>
 	</page>
     
