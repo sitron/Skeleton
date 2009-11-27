@@ -20,3 +20,7 @@ Todo:
 
 Use it as you wish!
 created by laurent prodon (sitronnier.com)
+
+credits:
+Thanks to Romuald Quantin for making his Soma project available (http://www.soundstep.com), great inspiration for this work.
+Robotlegs of course! (http://www.robotlegs.org)

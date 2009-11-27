@@ -22,9 +22,7 @@ package com.sitronnier.rlskeleton.events
 	 * 
 	 * <p>The Original Code is sitronnier.<br />
 	 * The Initial Developer of the Original Code is Laurent Prodon.<br />
-	 * Initial Developer are Copyright (C) 2008-2009 Sitronnier.com. All Rights Reserved.</p>
-	 *
-	 * Thanks to Romuald Quantin for making his Soma project available (http://www.soundstep.com), great inspiration for this work. <br />
+	 * Initial Developer are Copyright (C) 2009-2010 Sitronnier.com. All Rights Reserved.</p>
 	 */
 	
 	public class PageEvent extends Event
