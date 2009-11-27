@@ -31,8 +31,12 @@ package com.sitronnier.rlskeleton.models
 	
 	public class DataModel extends Actor
 	{
+		// use it if needed
+		public static var VERSION:String = "0";
+		public static var DEBUG:Boolean = false;
+		
 		// is there a better way to do this?
-		public static const PAGE_PACKAGE:String = "com.sitronnier.rlskeleton.views.components.pages.";
+		public static var PAGE_PACKAGE:String = "";
 		
 		// reference to sitemap base xml
 		protected var _sitemap:SitemapHelper;

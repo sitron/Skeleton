@@ -4,6 +4,7 @@ package
 	import com.sitronnier.rlskeleton.commands.LoadStyleSheetCommand;
 	import com.sitronnier.rlskeleton.commands.OnInitialDataReady;
 	import com.sitronnier.rlskeleton.commands.PageChangeRequest;
+	import com.sitronnier.rlskeleton.commands.RegisterCustomConfig;
 	import com.sitronnier.rlskeleton.commands.StartupCommand;
 	import com.sitronnier.rlskeleton.events.DataEvent;
 	import com.sitronnier.rlskeleton.events.PageEvent;
@@ -48,6 +49,7 @@ package
 			// create loader model
 			injector.mapSingleton(LoaderModel);
 			
+			commandMap.mapEvent(ContextEvent.STARTUP, RegisterCustomConfig, ContextEvent, true);
 			commandMap.mapEvent(ContextEvent.STARTUP, StartupCommand, ContextEvent, true);
 			commandMap.mapEvent(DataEvent.LOAD_SITEMAP, LoadSiteMapCommand, DataEvent, false);
 			commandMap.mapEvent(DataEvent.LOAD_STYLESHEET, LoadStyleSheetCommand, DataEvent, false);
