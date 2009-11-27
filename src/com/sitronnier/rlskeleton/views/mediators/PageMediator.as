@@ -62,6 +62,14 @@ package com.sitronnier.rlskeleton.views.mediators
 			}
 		}
 		
+		protected function _onPageWillChange(event:PageEvent):void
+		{	
+			if (event.pageId == pageView.id && pageView.willBeRemoved) 
+			{
+				event.preventDefault();	
+			}
+		} 
+		
 		protected function _onPageExcluded(event:PageEvent):void
 		{
 			var page:PageVO = dataModel.getPageById(event.pageId);
@@ -113,6 +121,7 @@ package com.sitronnier.rlskeleton.views.mediators
 		
 		override public function onRegister() : void
 		{
+			eventMap.mapListener(eventDispatcher, PageEvent.PAGE_WILL_CHANGE, _onPageWillChange);
 			eventMap.mapListener(eventDispatcher, PageEvent.ON_PAGE_CHANGE, _onPageChange);
 			eventMap.mapListener(eventDispatcher, PageEvent.ON_TRANSITION_OUT_COMPLETE, _onTransitionOutComplete);
 			eventMap.mapListener(eventDispatcher, PageEvent.PAGE_EXCLUDED, _onPageExcluded);

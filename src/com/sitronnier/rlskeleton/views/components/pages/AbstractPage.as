@@ -34,6 +34,9 @@ package com.sitronnier.rlskeleton.views.components.pages
 		protected var _pageXml:XML;
 		protected var _id:String;
 		
+		// dirty flags
+		protected var _willBeRemoved:Boolean = false;
+		
 		public function AbstractPage(data:PageVO)
 		{
 			_data = data;
@@ -95,14 +98,6 @@ package com.sitronnier.rlskeleton.views.components.pages
 		} 
 		
 		/**
-		 * helper (not really necessary... but...)
-		 */
-		public function get id():String
-		{
-			return _id;
-		} 
-		
-		/**
 		 * Override and do transition here, than call _onTransitionInOver 
 		 */
 		public function transitionIn():void
@@ -115,6 +110,7 @@ package com.sitronnier.rlskeleton.views.components.pages
 		 */
 		public function transitionOut():void
 		{
+			_willBeRemoved = true;
 			dispatchEvent(new PageViewEvent(PageViewEvent.ON_TRANSITION_OUT_START, _id));
 		} 
 		
@@ -124,6 +120,23 @@ package com.sitronnier.rlskeleton.views.components.pages
 		public function dispose():void
 		{
 			trace("dispose page: " + _data.id);
+		} 
+		
+		/**
+		 * helper (not really necessary... but...)
+		 */
+		public function get id():String
+		{
+			return _id;
+		} 
+		
+		/**
+		 * To know if a page is in transitionOut-dispose process 
+		 * @return Boolean
+		 */		
+		public function get willBeRemoved():Boolean
+		{
+			return _willBeRemoved;
 		} 
 	}
 }

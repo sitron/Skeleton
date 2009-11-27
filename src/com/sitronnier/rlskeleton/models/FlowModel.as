@@ -86,8 +86,11 @@ package com.sitronnier.rlskeleton.models
 				// keep a reference to the old (soon to be changed) page
 				oldPage = _currentPage;
 				
-				// inform actors that page will change (is this necessary?)
-				dispatch(new PageEvent(PageEvent.PAGE_WILL_CHANGE, vo.id));
+				// inform actors that page will change
+				var ev:PageEvent = new PageEvent(PageEvent.PAGE_WILL_CHANGE, vo.id, false, true);
+				var b:Boolean = dispatch(ev);
+//				trace("la: " + ev.isDefaultPrevented());
+				if (ev.isDefaultPrevented()) return;
 			}
 			
 			// if the page is just a container redirect to its "showChild" index child (see @showChild in sitemap.xml)			
