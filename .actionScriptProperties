@@ -29,7 +29,7 @@
         </excludedEntries>
       </libraryPathEntry>
       <libraryPathEntry kind="3" linkType="1" path="/Users/laurent/Documents/Dropbox/dev/classes/tweener/tweener.swc" useDefaultLinkType="false"/>
-      <libraryPathEntry kind="3" linkType="1" path="/Users/laurent/Documents/Dropbox/dev/classes/robotlegs/robotlegs-framework-v1.0RC3.swc" useDefaultLinkType="false"/>
+      <libraryPathEntry kind="3" linkType="1" path="/Users/laurent/Documents/Dropbox/dev/classes/robotlegs/robotlegs-framework-v1.0.0.swc" useDefaultLinkType="false"/>
     </libraryPath>
     <sourceAttachmentPath/>
   </compiler>

@@ -134,7 +134,7 @@ package com.sitronnier.rlskeleton.models
 		 */
 		public function getPageById(id:String):PageVO
 		{
-			return _sitemap.getPageById(id);	
+			return _pages[id] as PageVO;	
 		} 
 		
 		/**
